@@ -21,7 +21,7 @@ export async function fetchRevenue() {
   }
 }
 
-export async function fetchLatestInvoices() {
+export async function fetchLatestWorkouts() {
   try {
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
@@ -77,7 +77,7 @@ export async function fetchCardData() {
 }
 
 const ITEMS_PER_PAGE = 6;
-export async function fetchFilteredInvoices(
+export async function fetchFilteredWorkouts(
   query: string,
   currentPage: number,
 ) {
@@ -112,7 +112,7 @@ export async function fetchFilteredInvoices(
   }
 }
 
-export async function fetchInvoicesPages(query: string) {
+export async function fetchWorkoutPages(query: string) {
   try {
     const count = await sql`SELECT COUNT(*)
     FROM invoices
@@ -133,7 +133,7 @@ export async function fetchInvoicesPages(query: string) {
   }
 }
 
-export async function fetchInvoiceById(id: string) {
+export async function fetchWorkoutById(id: string) {
   try {
     const data = await sql<InvoiceForm>`
       SELECT

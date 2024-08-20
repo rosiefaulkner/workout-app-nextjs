@@ -28,18 +28,18 @@ export async function authenticate(
 const FormSchema = z.object({
     id: z.string(),
     customerId: z.string({
-        invalid_type_error: 'Please select a customer.',
+        invalid_type_error: 'Please select equipment.',
     }),
     amount: z.coerce.number()
         .gt(0, { message: 'Please enter an amount greater than $0.' }),
     status: z.enum(['pending', 'paid'], {
-        invalid_type_error: 'Please select an invoice status.',
+        invalid_type_error: 'Please select a workout status.',
     }),
     date: z.string(),
 });
 
-const CreateInvoice = FormSchema.omit({ id: true, date: true });
-const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+const CreateWorkout = FormSchema.omit({ id: true, date: true });
+const UpdateWorkout = FormSchema.omit({ id: true, date: true });
 
 export type State = {
     errors?: {
@@ -50,8 +50,8 @@ export type State = {
     message?: string | null;
 };
 
-export async function createInvoice(prevState: State, formData: FormData) {
-    const validatedFields = CreateInvoice.safeParse({
+export async function createWorkout(prevState: State, formData: FormData) {
+    const validatedFields = CreateWorkout.safeParse({
         customerId: formData.get('customerId'),
         amount: formData.get('amount'),
         status: formData.get('status'),
@@ -61,7 +61,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Missing Fields. Failed to Create Invoice.',
+            message: 'Missing Fields. Failed to Create Workout.',
         };
     }
 
@@ -79,21 +79,21 @@ export async function createInvoice(prevState: State, formData: FormData) {
     } catch (error) {
         // If a database error occurs, return a more specific error.
         return {
-            message: 'Database Error: Failed to Create Invoice.',
+            message: 'Database Error: Failed to Create Workout.',
         };
     }
 
-    // Revalidate the cache for the invoices page and redirect the user.
-    revalidatePath('/dashboard/invoices');
-    redirect('/dashboard/invoices');
+    // Revalidate the cache for the workouts page and redirect the user.
+    revalidatePath('/dashboard/workouts');
+    redirect('/dashboard/workouts');
 }
 
-export async function updateInvoice(
+export async function updateWorkout(
     id: string,
     prevState: State,
     formData: FormData,
 ) {
-    const validatedFields = UpdateInvoice.safeParse({
+    const validatedFields = UpdateWorkout.safeParse({
         customerId: formData.get('customerId'),
         amount: formData.get('amount'),
         status: formData.get('status'),
@@ -102,7 +102,7 @@ export async function updateInvoice(
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Missing Fields. Failed to Update Invoice.',
+            message: 'Missing Fields. Failed to Update Workout.',
         };
     }
 
@@ -116,21 +116,21 @@ export async function updateInvoice(
         WHERE id = ${id}
       `;
     } catch (error) {
-        return { message: 'Database Error: Failed to Update Invoice.' };
+        return { message: 'Database Error: Failed to Update Workout.' };
     }
 
-    revalidatePath('/dashboard/invoices');
-    redirect('/dashboard/invoices');
+    revalidatePath('/dashboard/workouts');
+    redirect('/dashboard/workouts');
 }
 
-export async function deleteInvoice(id: string) {
+export async function deleteWorkout(id: string) {
     try {
         await sql`DELETE FROM invoices WHERE id = ${id}`;
-        revalidatePath('/dashboard/invoices');
-        return { message: 'Deleted Invoice.' };
+        revalidatePath('/dashboard/workouts');
+        return { message: 'Deleted Workout.' };
     } catch (error) {
         return {
-            message: 'Database Error: Failed to Delete Invoice.',
+            message: 'Database Error: Failed to Delete Workout.',
         };
     }
 }

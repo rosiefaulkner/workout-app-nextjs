@@ -1,17 +1,17 @@
 import Image from 'next/image';
-import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
-import InvoiceStatus from '@/app/ui/invoices/status';
+import { UpdateWorkout, DeleteWorkout } from '@/app/ui/workouts/buttons';
+import WorkoutStatus from '@/app/ui/workouts/status';
 import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
-import { fetchFilteredInvoices } from '@/app/lib/data';
+import { fetchFilteredWorkouts } from '@/app/lib/data';
 
-export default async function InvoicesTable({
+export default async function WorkoutsTable({
   query,
   currentPage,
 }: {
   query: string;
   currentPage: number;
 }) {
-  const invoices = await fetchFilteredInvoices(query, currentPage);
+  const invoices = await fetchFilteredWorkouts(query, currentPage);
 
   return (
     <div className="mt-6 flow-root">
@@ -37,7 +37,7 @@ export default async function InvoicesTable({
                     </div>
                     <p className="text-sm text-gray-500">{invoice.email}</p>
                   </div>
-                  <InvoiceStatus status={invoice.status} />
+                  <WorkoutStatus status={invoice.status} />
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
@@ -47,8 +47,8 @@ export default async function InvoicesTable({
                     <p>{formatDateToLocal(invoice.date)}</p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateInvoice id={invoice.id} />
-                    <DeleteInvoice id={invoice.id} />
+                    <UpdateWorkout id={invoice.id} />
+                    <DeleteWorkout id={invoice.id} />
                   </div>
                 </div>
               </div>
@@ -105,12 +105,12 @@ export default async function InvoicesTable({
                     {formatDateToLocal(invoice.date)}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    <InvoiceStatus status={invoice.status} />
+                    <WorkoutStatus status={invoice.status} />
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateInvoice id={invoice.id} />
-                      <DeleteInvoice id={invoice.id} />
+                      <UpdateWorkout id={invoice.id} />
+                      <DeleteWorkout id={invoice.id} />
                     </div>
                   </td>
                 </tr>

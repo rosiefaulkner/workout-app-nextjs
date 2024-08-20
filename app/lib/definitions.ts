@@ -31,7 +31,7 @@ export type Revenue = {
   revenue: number;
 };
 
-export type LatestInvoice = {
+export type LatestWorkout = {
   id: string;
   name: string;
   image_url: string;
@@ -40,11 +40,11 @@ export type LatestInvoice = {
 };
 
 // The database returns a number for amount, but we later format it to a string with the formatCurrency function
-export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
+export type LatestWorkoutRaw = Omit<LatestWorkout, 'amount'> & {
   amount: number;
 };
 
-export type InvoicesTable = {
+export type WorkoutsTable = {
   id: string;
   customer_id: string;
   name: string;
@@ -80,7 +80,7 @@ export type CustomerField = {
   name: string;
 };
 
-export type InvoiceForm = {
+export type WorkoutForm = {
   id: string;
   customer_id: string;
   amount: number;

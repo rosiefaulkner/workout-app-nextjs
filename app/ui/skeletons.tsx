@@ -44,7 +44,7 @@ export function RevenueChartSkeleton() {
   );
 }
 
-export function InvoiceSkeleton() {
+export function WorkoutsTableSkeleton() {
   return (
     <div className="flex flex-row items-center justify-between border-b border-gray-100 py-4">
       <div className="flex items-center">
@@ -67,11 +67,11 @@ export function LatestInvoicesSkeleton() {
       <div className="mb-4 h-8 w-36 rounded-md bg-gray-100" />
       <div className="flex grow flex-col justify-between rounded-xl bg-gray-100 p-4">
         <div className="bg-white px-6">
-          <InvoiceSkeleton />
-          <InvoiceSkeleton />
-          <InvoiceSkeleton />
-          <InvoiceSkeleton />
-          <InvoiceSkeleton />
+          <WorkoutsTableSkeleton />
+          <WorkoutsTableSkeleton />
+          <WorkoutsTableSkeleton />
+          <WorkoutsTableSkeleton />
+          <WorkoutsTableSkeleton />
         </div>
         <div className="flex items-center pb-2 pt-6">
           <div className="h-5 w-5 rounded-full bg-gray-200" />
